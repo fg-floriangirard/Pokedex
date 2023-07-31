@@ -97,6 +97,25 @@ class Pokemon extends CoreModel
         return $pokemon;
     }
 
+     /** 
+     * Method to retrieve a list of pokemons by type
+     */
+    public function findByType($typeId)
+    {
+        // We join the pivot table "pokemon_type" in order to filter on type IDs.
+        $sql = "SELECT *
+                FROM `pokemon` 
+                INNER JOIN `pokemon_type` ON `pokemon_type`.`pokemon_number` = `pokemon`.`number`
+                WHERE `pokemon_type`.`type_id` = {$typeId}
+                ORDER BY `pokemon`.`number`";
+
+        $pdo = Database::getPDO();
+        $pdoStatement = $pdo->query($sql);
+        $pokemons = $pdoStatement->fetchAll(PDO::FETCH_CLASS, self::class);
+
+        return $pokemons;
+    }
+
     /**
      * Method to display the type of the current Pokemon
      */

@@ -10,6 +10,8 @@ $router->setBasePath($_SERVER['BASE_URI']);
 // Routes
 $router->map('GET','/', 'MainController#list', 'home');
 $router->map('GET','/detail/[i:number]', 'MainController#detail', 'detail');
+$router->map('GET','/types', 'MainController#types', 'types');
+$router->map('GET','/type/[i:type]', 'MainController#type', 'type');
 
 // Match the current request 
 $match = $router->match();

@@ -3,6 +3,7 @@
 namespace Pokedex\Controllers;
 
 use Pokedex\Models\Pokemon;
+use Pokedex\Models\Type;
 
 
 class MainController
@@ -30,6 +31,28 @@ class MainController
             'types' => $types
         ]);
     }
+
+     // Display types
+     public function types()
+     {
+         $typeObject = new Type();
+         $types =  $typeObject->findAll();
+         $this->show('types', [
+             'title' => 'Liste des types',
+             'types' => $types
+         ]);
+     }
+ 
+     // Display list filtered by types
+     public function type($params)
+     {
+         $pokemonObject = new Pokemon();
+         $pokemons = $pokemonObject->findByType($params['type']);
+         $this->show('list', [
+             'title' => 'Filtré par type',
+             'pokemons' => $pokemons
+         ]);
+     }
 
     // If the route is not found this method is called
     public function notFound()
