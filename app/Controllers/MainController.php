@@ -4,6 +4,7 @@ namespace Pokedex\Controllers;
 
 use Pokedex\Models\Pokemon;
 
+
 class MainController
 {
     // Display pokemons list (home page)
@@ -14,6 +15,19 @@ class MainController
         $this->show('list', [
             'title' => 'Home',
             'pokemons' => $pokemons
+        ]);
+    }
+
+    // Display pokemon details
+    public function detail($params)
+    {
+        $pokemonObject = new Pokemon();
+        $pokemon = $pokemonObject->find($params['number']);
+        $types = $pokemon->getTypes();
+        $this->show('detail', [
+            'title' => 'Accueil',
+            'pokemon' => $pokemon,
+            'types' => $types
         ]);
     }
 

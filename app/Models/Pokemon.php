@@ -4,6 +4,7 @@ namespace Pokedex\Models;
 
 use Pokedex\Utils\Database;
 use PDO;
+use Pokedex\Models\Type;
 
 class Pokemon extends CoreModel
 {
@@ -59,7 +60,7 @@ class Pokemon extends CoreModel
     }
 
     /**
-     * Method to retrieve the list of Pokémon sorted by numbers
+     * Method to retrieve the list of Pokemons sorted by numbers
      */
     public function findAll()
     {
@@ -77,5 +78,41 @@ class Pokemon extends CoreModel
         $pokemons = $request->fetchAll(PDO::FETCH_CLASS, self::class);
 
         return $pokemons;
+    }
+
+    /** 
+     * Méthode to retrieve informations of one pokemon
+     */
+    public function find($number)
+    {
+        $sql = "SELECT *
+                FROM `pokemon` 
+                WHERE `number` = {$number}
+                LIMIT 1";
+
+        $pdo = Database::getPDO();
+        $pdoStatement = $pdo->query($sql);
+        $pokemon = $pdoStatement->fetchObject(self::class);
+
+        return $pokemon;
+    }
+
+    /**
+     * Method to display the type of the current Pokemon
+     */
+    public function getTypes()
+    {
+        // SQL query to select types from the pivot table "pokemon_type" and join with the "type" table
+        $sql = "SELECT `type`.*
+                FROM `pokemon_type`
+                INNER JOIN `type` ON `type`.`id` = `pokemon_type`.`type_id`
+                WHERE `pokemon_type`.`pokemon_number` = {$this->getNumber()}";
+
+        
+        $pdo = Database::getPDO();
+        $pdoStatement = $pdo->query($sql);
+        $types = $pdoStatement->fetchAll(PDO::FETCH_CLASS, Type::class);
+
+        return $types;
     }
 }
