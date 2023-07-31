@@ -14,7 +14,7 @@ class MainController
         $pokemonObject = new Pokemon();
         $pokemons = $pokemonObject->findAll();
         $this->show('list', [
-            'title' => 'Home',
+            'title' => 'Acceuil',
             'pokemons' => $pokemons
         ]);
     }
@@ -26,7 +26,7 @@ class MainController
         $pokemon = $pokemonObject->find($params['number']);
         $types = $pokemon->getTypes();
         $this->show('detail', [
-            'title' => 'Accueil',
+            'title' => 'Détail du pokémon',
             'pokemon' => $pokemon,
             'types' => $types
         ]);

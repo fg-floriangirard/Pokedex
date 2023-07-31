@@ -1,9 +1,9 @@
 <div class="types_list">
-    <p>Click on a type to see every Pokemon from this type</p>
+    <p>Cliquez sur un type pour voir tous les Pokémon de ce type</p>
     <?php  $types = $viewVars['types'];
 
     if(!$types) {
-        echo "Whoops, this type was not found!";
+      echo "Oups, aucun type trouvé !";
     } else {
         echo "<ul>";
         foreach ($types as $type): ?>
