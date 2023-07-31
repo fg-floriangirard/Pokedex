@@ -49,10 +49,14 @@ header .container {
 header nav ul {
   display: flex;
 }
-
 header ul li {
   margin-right: 0.5rem;
 }
+header a:hover {
+  color: #000000;
+  text-decoration: none;
+}
+
 
 .logo {
   font-size: 1.5rem;
@@ -170,15 +174,19 @@ h1 {
 .types_list .type {
   border-radius: 5px;
   position: relative;
+  overflow: hidden; /* To hide overflowing background from child elements */
+  box-shadow: 10 10px 10px rgb(0, 0, 0); /* Add a subtle shadow */
+  transition: box-shadow 0.3s ease;
 }
-
 .types_list .type a {
   color: #FFF;
   padding: 1rem; 
   text-align: center;
   display: block;
 }
-
+.types_list .type:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Increase the shadow on hover */
+}
 .types_list ul {
   display: grid;
   grid-column-gap: .5rem;
